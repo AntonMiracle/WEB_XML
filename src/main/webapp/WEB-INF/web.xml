@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <!--============ servlets and mapping-->
+    <!-- Need add servlet lib to classpath
+    This servlet is init servlet inside init servlet
+    add context param pragmatically-->
+    <servlet>
+        <servlet-name>init</servlet-name>
+        <servlet-class>controller.InitServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>init</servlet-name>
+        <url-pattern>/init</url-pattern>
+    </servlet-mapping>
+    <!--
+    How server choose what url need to choose. We have "/*" and "/3/*".
+    He searching from maximum matching. So
+    if "/1/sdsdf/sdf/s" - it will choose "/1/*" controller1
+    if "/1/3/sfds/sdf" - it will choose "/1/3/*" controller3
+    if "/1/3" - it will choose "/1/3" controller4
+    if "/2" - it will choose "/2" controller2
+    -->
+    <servlet>
+        <servlet-name>controller1</servlet-name>
+        <servlet-class>controller.Controller1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>controller1</servlet-name>
+        <url-pattern>/1/*</url-pattern>
+    </servlet-mapping>
+    <!-- Servlet - controller2 mapping by @annotation,
+    if mapping by web.xml and @annotation in the same time will be exception-->
+    <servlet>
+        <servlet-name>controller3</servlet-name>
+        <servlet-class>controller.Controller3</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>controller3</servlet-name>
+        <url-pattern>/1/3/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>controller4</servlet-name>
+        <servlet-class>controller.Controller4</servlet-class>
+        <init-param>
+            <param-name>4param1</param-name>
+            <param-value>webxml-controller4-pram1</param-value>
+        </init-param>
+        <init-param>
+            <param-name>4param2</param-name>
+            <param-value>webxml-controller4-pram2</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>controller4</servlet-name>
+        <url-pattern>/1/3</url-pattern>
+    </servlet-mapping>
+    <!--=============== JSP init param for JSP-->
+    <servlet>
+        <servlet-name>jsp1</servlet-name>
+        <jsp-file>/index.jsp</jsp-file>
+        <init-param>
+            <param-name>jspparam1</param-name>
+            <param-value>jspparam1</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jsp1</servlet-name>
+        <url-pattern>/indexjsp</url-pattern>
+    </servlet-mapping>
+    <!--===============Context param=====================================-->
+    <!-- each context param must have his own context-param area-->
+    <context-param>
+        <param-name>param1</param-name>
+        <param-value>webxml-param1</param-value>
+    </context-param>
+    <context-param>
+        <param-name>param2</param-name>
+        <param-value>webxml-param2</param-value>
+    </context-param>
+    <!--======== session ===============-->
+    <!--by default = 30 min-->
+    <!--set value in min-->
+    <session-config>
+        <session-timeout>20</session-timeout>
+    </session-config>
+    <!-- it searching first availiable index from top to buton-->
+    <!--welcome file launch if not exist mapping on "/*"
+    otherwise launch "/*"-->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <!--==== LOCALE ====-->
+    <!--set encoding different by locale-->
+    <locale-encoding-mapping-list>
+        <locale-encoding-mapping>
+            <locale>ja</locale>
+            <encoding>Shift_JIS</encoding>
+        </locale-encoding-mapping>
+    </locale-encoding-mapping-list>
+    <!-- ==== For work in clusters ===-->
+    <distributable/>
+
+    <!-- ======== Errors ======-->
+    <!--In location can set servlet-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.io.IOException</exception-type>
+        <location>/errorIO.jsp</location>
+    </error-page>
+
+    <!--===JSP config ===-->
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>/error.jsp</url-pattern>
+            <el-ignored>false</el-ignored>
+            <scripting-invalid>true</scripting-invalid>
+            <is-xml>true</is-xml> <!-- check validate as xml standard-->
+        </jsp-property-group>
+        <jsp-property-group>
+            <url-pattern>/main.jsp</url-pattern>
+            <include-prelude>/header.jsp</include-prelude>
+            <include-coda>/footer.jsp</include-coda>
+        </jsp-property-group>
+    </jsp-config>
+</web-app>
