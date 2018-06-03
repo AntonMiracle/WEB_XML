@@ -140,4 +140,55 @@
             <include-coda>/footer.jsp</include-coda>
         </jsp-property-group>
     </jsp-config>
+
+    <!-- === Login config  VERSION 1==== -->
+    <!-- BASIC это аутентификация указаная в самом сервере Tomcat -> conf -> tomcat-users.xml -->
+    <!--
+     <login-config>
+         <auth-method>BASIC</auth-method>
+         <realm-name>realmName</realm-name>
+     </login-config>
+     <security-constraint>
+         <web-resource-collection>
+             <web-resource-name>secutreJsp</web-resource-name>
+             <url-pattern>/restricted.jsp</url-pattern>
+         </web-resource-collection>
+         <auth-constraint>
+             <role-name>admin</role-name>
+         </auth-constraint>
+     </security-constraint>
+     добавляем роли которые совпадают с ролями добавлеными в сервер Tomcat -> conf -> web.xml
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
+    -->
+    <!-- === Login config  VERSION 2==== -->
+    <!-- BASIC это аутентификация указаная в самом сервере Tomcat -> conf -> tomcat-users.xml -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login-page.jsp</form-login-page>
+            <form-error-page>/login-error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>secutreJsp</web-resource-name>
+            <url-pattern>/restricted.jsp</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!-- добавляем роли которые совпадают с ролями добавлеными в сервер
+    Tomcat -> conf -> web.xml-->
+    <security-role>
+        <role-name>admin</role-name>
+    </security-role>
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
 </web-app>
