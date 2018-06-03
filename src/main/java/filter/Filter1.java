@@ -14,14 +14,14 @@ public class Filter1 implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        response.getWriter().write("START method doFilter");
+        response.getWriter().write("START method doFilter" +lineSeparator());
         PrintWriter writer = response.getWriter();
          writer.write(this.getClass().toString() + " FILTER start" + lineSeparator());
 
         // до этого вызова можно спокойно работать с реквестом и респонсом
         chain.doFilter(request, response); // Если этой строки не будет, то после вызова фильтра дальше никакой сервлет не вызовиться
 
-        response.getWriter().write("END method doFilter");
+        response.getWriter().write("END method doFilter"+lineSeparator());
     }
 
     @Override
