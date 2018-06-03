@@ -74,6 +74,19 @@
         <servlet-name>jsp1</servlet-name>
         <url-pattern>/indexjsp</url-pattern>
     </servlet-mapping>
+    <!-- ====== Servlet with check roles ======= -->
+    <servlet>
+        <servlet-name>AuthServlet</servlet-name>
+        <servlet-class>controller.AuthServlet</servlet-class>
+        <security-role-ref>
+            <role-name>Administrator</role-name> <!-- имя роли внутри сервлета -->
+            <role-link>admin</role-link> <!--  реальная созданая роль в <security-role>>-->
+        </security-role-ref>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthServlet</servlet-name>
+        <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
 
     <!-- ======= Context param ============= -->
     <!-- Для каждого параметра нужно определить отдельно context-param таг -->
@@ -141,50 +154,39 @@
         </jsp-property-group>
     </jsp-config>
 
-    <!-- === Login config  VERSION 1==== -->
-    <!-- BASIC это аутентификация указаная в самом сервере Tomcat -> conf -> tomcat-users.xml -->
-    <!--
-     <login-config>
-         <auth-method>BASIC</auth-method>
-         <realm-name>realmName</realm-name>
-     </login-config>
-     <security-constraint>
-         <web-resource-collection>
-             <web-resource-name>secutreJsp</web-resource-name>
-             <url-pattern>/restricted.jsp</url-pattern>
-         </web-resource-collection>
-         <auth-constraint>
-             <role-name>admin</role-name>
-         </auth-constraint>
-     </security-constraint>
-     добавляем роли которые совпадают с ролями добавлеными в сервер Tomcat -> conf -> web.xml
-    <security-role>
-        <role-name>admin</role-name>
-    </security-role>
-    <security-role>
-        <role-name>user</role-name>
-    </security-role>
-    -->
     <!-- === Login config  VERSION 2==== -->
-    <!-- BASIC это аутентификация указаная в самом сервере Tomcat -> conf -> tomcat-users.xml -->
+    <!-- это аутентификация указаная в самом сервере Tomcat -> conf -> tomcat-users.xml -->
     <login-config>
+        <!--<auth-method>BASIC</auth-method>-->
         <auth-method>FORM</auth-method>
         <form-login-config>
             <form-login-page>/login-page.jsp</form-login-page>
             <form-error-page>/login-error.jsp</form-error-page>
         </form-login-config>
     </login-config>
+
+    <!-- ===== Security constrained === -->
     <security-constraint>
+
         <web-resource-collection>
             <web-resource-name>secutreJsp</web-resource-name>
-            <url-pattern>/restricted.jsp</url-pattern>
+            <url-pattern>/restricted.jsp</url-pattern> <!-- Патерн по которому ресурсф будут доступны с ролью admin -->
+            <http-method>post</http-method> <!-- доступ только через метод post -->
         </web-resource-collection>
+
+        <web-resource-collection>
+            <web-resource-name>authServlet
+            </web-resource-name> <!-- указываем название ресурса и патерн который будет требовать залогиниться -->
+            <url-pattern>/auth</url-pattern>
+        </web-resource-collection>
+
         <auth-constraint>
             <role-name>admin</role-name>
         </auth-constraint>
+
     </security-constraint>
-    <!-- добавляем роли которые совпадают с ролями добавлеными в сервер
-    Tomcat -> conf -> web.xml-->
+
+    <!-- добавляем роли которые совпадают с ролями добавлеными в сервер Tomcat -> conf -> tomcat-users.xml -->
     <security-role>
         <role-name>admin</role-name>
     </security-role>
