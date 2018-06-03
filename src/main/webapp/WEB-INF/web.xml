@@ -198,11 +198,19 @@
     <filter>
         <filter-name>Filter1</filter-name>
         <filter-class>filter.Filter1</filter-class>
+        <init-param>
+            <param-name>filterParam</param-name>
+            <param-value>valueFilterParam</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>Filter1</filter-name>
         <!--<servlet-name>someservletname</servlet-name> можем указать имя сервлета (не класс) который раннее уже добавлен в web.xml-->
         <url-pattern>/filterController1</url-pattern> <!-- Указываем урл к которым будет приминятся фильтр-->
+        <dispatcher>REQUEST</dispatcher><!-- применения фильтров для методов диспатчера, который определяет какой сервлет запускать -->
+        <dispatcher>INCLUDE</dispatcher><!--  т.е. фильтр вызывается перед сервлетом -->
+        <dispatcher>FORWARD</dispatcher><!--  -->
+        <dispatcher>ERROR</dispatcher><!--  -->
     </filter-mapping>
 
 </web-app>

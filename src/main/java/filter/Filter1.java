@@ -9,7 +9,8 @@ import static java.lang.System.*;
 public class Filter1 implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        out.println(this.getClass().toString() + " INIT method");
+        out.println(this.getClass().toString() + " INIT method" + lineSeparator());
+        System.out.println("FILTER INIT PARAM : " +filterConfig.getInitParameter("filterParam"));
     }
 
     @Override
