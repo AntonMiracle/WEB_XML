@@ -1,6 +1,8 @@
 package filter;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
@@ -8,6 +10,14 @@ import java.io.PrintWriter;
 
 import static java.lang.System.*;
 
+@WebFilter(value = "/filterController1", initParams = {
+        @WebInitParam(name = "param1", value = "valueparam1"),
+        @WebInitParam(name = "param2", value = "valueparam2"),
+        @WebInitParam(name = "param3", value = "valueparam3")},
+        dispatcherTypes = {
+                DispatcherType.ERROR,
+                DispatcherType.FORWARD,
+                DispatcherType.REQUEST})
 public class Filter1 implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -33,6 +43,7 @@ public class Filter1 implements Filter {
         out.println(this.getClass().toString() + " DESTROY method");
     }
 }
+
 // Обертка респонс
 class MyResponseWrapper extends HttpServletResponseWrapper {
     public MyResponseWrapper(HttpServletResponse response) {
