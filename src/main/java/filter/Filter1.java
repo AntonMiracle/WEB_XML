@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static java.lang.System.*;
+import static java.lang.System.lineSeparator;
+import static java.lang.System.out;
 
-@WebFilter(value = "/filterController1", initParams = {
+@WebFilter(value = Filter1.URL, initParams = {
         @WebInitParam(name = "param1", value = "valueparam1"),
         @WebInitParam(name = "param2", value = "valueparam2"),
         @WebInitParam(name = "param3", value = "valueparam3")},
@@ -19,6 +20,7 @@ import static java.lang.System.*;
                 DispatcherType.FORWARD,
                 DispatcherType.REQUEST})
 public class Filter1 implements Filter {
+    public final static String URL = "/filterController1";
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         out.println(this.getClass().toString() + " INIT method" + lineSeparator());
@@ -29,6 +31,7 @@ public class Filter1 implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         response.getWriter().write("START method doFilter" + lineSeparator());
         PrintWriter writer = response.getWriter();
+        System.out.println(request.getRemoteHost());
         writer.write(this.getClass().toString() + " FILTER start" + lineSeparator());
 
         // до этого вызова можно спокойно работать с реквестом и респонсом
