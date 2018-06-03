@@ -3,10 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <!--============ servlets and mapping-->
-    <!-- Need add servlet lib to classpath
-    This servlet is init servlet inside init servlet
-    add context param pragmatically-->
+
+    <!-- ===== servlets and mapping ===== -->
+    <!-- Need add servlet lib to classpath -->
     <servlet>
         <servlet-name>init</servlet-name>
         <servlet-class>controller.InitServlet</servlet-class>
@@ -17,12 +16,12 @@
         <url-pattern>/init</url-pattern>
     </servlet-mapping>
     <!--
-    How server choose what url need to choose. We have "/*" and "/3/*".
+    How server choose what mapping url need to choose.
     He searching from maximum matching. So
-    if "/1/sdsdf/sdf/s" - it will choose "/1/*" controller1
-    if "/1/3/sfds/sdf" - it will choose "/1/3/*" controller3
-    if "/1/3" - it will choose "/1/3" controller4
-    if "/2" - it will choose "/2" controller2
+    if "/1/sdsdf/sdf/s" -   choose "/1/*" controller1
+    if "/1/3/sfds/sdf" -    choose "/1/3/*" controller3
+    if "/1/3" -             choose "/1/3" controller4
+    if "/2" -               choose "/2" controller2
     -->
     <servlet>
         <servlet-name>controller1</servlet-name>
@@ -32,8 +31,10 @@
         <servlet-name>controller1</servlet-name>
         <url-pattern>/1/*</url-pattern>
     </servlet-mapping>
-    <!-- Servlet - controller2 mapping by @annotation,
-    if mapping by web.xml and @annotation in the same time will be exception-->
+    <!--
+    Servlet - controller2 mapping by @annotation,
+    if mapping by web.xml and @annotation in the same time will be exception
+    -->
     <servlet>
         <servlet-name>controller3</servlet-name>
         <servlet-class>controller.Controller3</servlet-class>
@@ -58,7 +59,9 @@
         <servlet-name>controller4</servlet-name>
         <url-pattern>/1/3</url-pattern>
     </servlet-mapping>
-    <!--=============== JSP init param for JSP-->
+
+    <!-- ======= JSP init param for JSP ======-->
+    <!-- JSP по сути Servlet можно указывать и использовать теже параметры как и при работе Servlet -->
     <servlet>
         <servlet-name>jsp1</servlet-name>
         <jsp-file>/index.jsp</jsp-file>
@@ -71,8 +74,9 @@
         <servlet-name>jsp1</servlet-name>
         <url-pattern>/indexjsp</url-pattern>
     </servlet-mapping>
-    <!--===============Context param=====================================-->
-    <!-- each context param must have his own context-param area-->
+
+    <!-- ======= Context param ============= -->
+    <!-- Для каждого параметра нужно определить отдельно context-param таг -->
     <context-param>
         <param-name>param1</param-name>
         <param-value>webxml-param1</param-value>
@@ -81,33 +85,35 @@
         <param-name>param2</param-name>
         <param-value>webxml-param2</param-value>
     </context-param>
-    <!--======== session ===============-->
-    <!--by default = 30 min-->
-    <!--set value in min-->
+
+    <!-- ======== session config =============== -->
+    <!-- по умолчанию 30 min, значение указываем в минутах -->
     <session-config>
         <session-timeout>20</session-timeout>
     </session-config>
-    <!-- it searching first availiable index from top to buton-->
-    <!--welcome file launch if not exist mapping on "/*"
-    otherwise launch "/*"-->
+
+    <!-- Ищет кокую страницу загрузить по умолчанию с верху вниз -->
+    <!-- Если маппинг не содержит "/*" то будет загружена страница по умолчанию -->
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
-    <!--==== LOCALE ====-->
-    <!--set encoding different by locale-->
+    <!-- ==== LOCALE ====-->
+    <!-- Устанавливаем для локации encoding -->
     <locale-encoding-mapping-list>
         <locale-encoding-mapping>
             <locale>ja</locale>
             <encoding>Shift_JIS</encoding>
         </locale-encoding-mapping>
     </locale-encoding-mapping-list>
+
     <!-- ==== For work in clusters ===-->
+    <!-- Некотороые ресурсы не делимы на кластеры -->
     <distributable/>
 
     <!-- ======== Errors ======-->
-    <!--In location can set servlet-->
+    <!-- Определяем, какой сервлет будет загружен при ошщибках -->
     <error-page>
         <error-code>404</error-code>
         <location>/error.jsp</location>
@@ -120,12 +126,15 @@
     <!--===JSP config ===-->
     <jsp-config>
         <jsp-property-group>
-            <url-pattern>/error.jsp</url-pattern>
+            <url-pattern>/error.jsp
+            </url-pattern> <!-- указываем какие JSP подвердены конфигурации. Можно указать все - "/*" -->
             <el-ignored>false</el-ignored>
             <scripting-invalid>true</scripting-invalid>
-            <is-xml>true</is-xml> <!-- check validate as xml standard-->
+            <is-xml>true</is-xml> <!--  Првоеряет правильность написать сошдасно XML стандарта,
+                                        хакрытые скобки, ковачки и т.д. в ином случае будет ошибка валидации-->
         </jsp-property-group>
         <jsp-property-group>
+            <!-- Физически склеивает файлы header.jsp + main.jsp + footer,jsp-->
             <url-pattern>/main.jsp</url-pattern>
             <include-prelude>/header.jsp</include-prelude>
             <include-coda>/footer.jsp</include-coda>
