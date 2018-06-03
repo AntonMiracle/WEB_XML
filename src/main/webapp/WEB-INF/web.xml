@@ -193,4 +193,16 @@
     <security-role>
         <role-name>user</role-name>
     </security-role>
+
+    <!-- ==== FILTERS ==== -->
+    <filter>
+        <filter-name>Filter1</filter-name>
+        <filter-class>filter.Filter1</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Filter1</filter-name>
+        <!--<servlet-name>someservletname</servlet-name> можем указать имя сервлета (не класс) который раннее уже добавлен в web.xml-->
+        <url-pattern>/filterController1</url-pattern> <!-- Указываем урл к которым будет приминятся фильтр-->
+    </filter-mapping>
+
 </web-app>
