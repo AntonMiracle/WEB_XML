@@ -214,5 +214,7 @@
         <!--<dispatcher>ERROR</dispatcher>&lt;!&ndash;  &ndash;&gt;-->
     <!--</filter-mapping>-->
     <!-- =========== END of DISABLE filter by @annotation====================-->
-
+<listener>
+    <listener-class>listener.Listener1</listener-class>
+</listener>
 </web-app>
