@@ -74,6 +74,7 @@
         <servlet-name>jsp1</servlet-name>
         <url-pattern>/indexjsp</url-pattern>
     </servlet-mapping>
+
     <!-- ====== Servlet with check roles ======= -->
     <servlet>
         <servlet-name>AuthServlet</servlet-name>
@@ -197,24 +198,24 @@
     <!-- ==== FILTERS ==== -->
     <!-- DISABLE because use @annotation-->
     <!--<filter>-->
-        <!--<filter-name>Filter1</filter-name>-->
-        <!--<filter-class>filter.Filter1</filter-class>-->
-        <!--<init-param>-->
-            <!--<param-name>filterParam</param-name>-->
-            <!--<param-value>valueFilterParam</param-value>-->
-        <!--</init-param>-->
+    <!--<filter-name>Filter1</filter-name>-->
+    <!--<filter-class>filter.Filter1</filter-class>-->
+    <!--<init-param>-->
+    <!--<param-name>filterParam</param-name>-->
+    <!--<param-value>valueFilterParam</param-value>-->
+    <!--</init-param>-->
     <!--</filter>-->
     <!--<filter-mapping>-->
-        <!--<filter-name>Filter1</filter-name>-->
-        <!--&lt;!&ndash;<servlet-name>someservletname</servlet-name> можем указать имя сервлета (не класс) который раннее уже добавлен в web.xml&ndash;&gt;-->
-        <!--<url-pattern>/filterController1</url-pattern> &lt;!&ndash; Указываем урл к которым будет приминятся фильтр&ndash;&gt;-->
-        <!--<dispatcher>REQUEST</dispatcher>&lt;!&ndash; применения фильтров для методов диспатчера, который определяет какой сервлет запускать &ndash;&gt;-->
-        <!--<dispatcher>INCLUDE</dispatcher>&lt;!&ndash;  т.е. фильтр вызывается перед сервлетом &ndash;&gt;-->
-        <!--<dispatcher>FORWARD</dispatcher>&lt;!&ndash;  &ndash;&gt;-->
-        <!--<dispatcher>ERROR</dispatcher>&lt;!&ndash;  &ndash;&gt;-->
+    <!--<filter-name>Filter1</filter-name>-->
+    <!--&lt;!&ndash;<servlet-name>someservletname</servlet-name> можем указать имя сервлета (не класс) который раннее уже добавлен в web.xml&ndash;&gt;-->
+    <!--<url-pattern>/filterController1</url-pattern> &lt;!&ndash; Указываем урл к которым будет приминятся фильтр&ndash;&gt;-->
+    <!--<dispatcher>REQUEST</dispatcher>&lt;!&ndash; применения фильтров для методов диспатчера, который определяет какой сервлет запускать &ndash;&gt;-->
+    <!--<dispatcher>INCLUDE</dispatcher>&lt;!&ndash;  т.е. фильтр вызывается перед сервлетом &ndash;&gt;-->
+    <!--<dispatcher>FORWARD</dispatcher>&lt;!&ndash;  &ndash;&gt;-->
+    <!--<dispatcher>ERROR</dispatcher>&lt;!&ndash;  &ndash;&gt;-->
     <!--</filter-mapping>-->
     <!-- =========== END of DISABLE filter by @annotation====================-->
-<listener>
-    <listener-class>listener.Listener1</listener-class>
-</listener>
+    <listener>
+        <listener-class>listener.Listener1</listener-class>
+    </listener>
 </web-app>
