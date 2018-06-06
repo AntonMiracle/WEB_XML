@@ -18,6 +18,11 @@
             <name>paramNameJspTag</name>
         </attribute>
     </tag>
+    <tag>
+        <name>InnerTag</name>
+        <tag-class>jsp.MyInnerTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
 <function> <!-- create function inside tag-->
     <name>functionMinus</name>
     <function-class>jsp.MyJspTag</function-class>

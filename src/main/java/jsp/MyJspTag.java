@@ -38,6 +38,10 @@ public class MyJspTag extends SimpleTagSupport {
         return num1 - num2;
     }
 
+    public String getParamNameJspTag() {
+        return paramNameJspTag;
+    }
+
     public void setParamNameJspTag(String paramNameJspTag) {
         this.paramNameJspTag = paramNameJspTag;
     }
