@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!-- ???? ?????? ????????? ??????????? ? WEB-INF, ?????? ????? ?? ????? ????????????? ?????? ?? uri-->
+<!-- Need to be in WEB-INF to get by uri-->
 <taglib xmlns="http://java.sun.com/xml/ns/javaee"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
@@ -8,15 +8,19 @@
     <tlib-version>1.0</tlib-version>
     <short-name>MyTagDescriptorName</short-name>
 
-    <!--??? ????? ??????????? ????????? ?????-->
+    <!--Create tag. Set name and associate java.class file-->
     <tag>
         <name>MyTagName</name>
         <tag-class>jsp.MyJspTag</tag-class>
         <!--<body-content>empty</body-content>-->
-        <body-content>scriptless</body-content>  <!--  ??? ?? ????????? ??? ? ?????-->
+        <body-content>scriptless</body-content>  <!--  if need to see body of the tag need to set scriptless-->
         <attribute>
             <name>paramNameJspTag</name>
         </attribute>
     </tag>
-
+<function> <!-- create function inside tag-->
+    <name>functionMinus</name>
+    <function-class>jsp.MyJspTag</function-class>
+    <function-signature>int functionMinus(int,int)</function-signature> <!--this method must be static-->
+</function>
 </taglib>

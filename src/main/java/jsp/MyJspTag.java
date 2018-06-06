@@ -16,6 +16,8 @@ public class MyJspTag extends SimpleTagSupport {
         System.out.println(this.getClass().toString() + " doTag method");
         getJspContext().getOut().print("msg from :" + this.getClass().toString() + " doTag method<br>");
         getJspContext().getOut().print("parameter which value setting in MyTag.jsp : " + paramNameJspTag);
+        //Создаем атрибут в таге и даем ему значение
+        getJspContext().setAttribute("TagAttName", "tagAttValue");
         //вывести содержимое тела тага
         //variant 1
 //        getJspContext().getOut().print("<b>");
@@ -30,6 +32,10 @@ public class MyJspTag extends SimpleTagSupport {
         getJspContext().getOut().print(afterEdit);
         getJspContext().getOut().print("<b>");
 
+    }
+
+    public static int functionMinus(int num1, int num2) {
+        return num1 - num2;
     }
 
     public void setParamNameJspTag(String paramNameJspTag) {
